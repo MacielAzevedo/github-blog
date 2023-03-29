@@ -18,13 +18,15 @@ module.exports = {
       },
       width: {
         '17': '4.25rem',
-        '37': '9.25rem'
+        '37': '9.25rem',
+        '71': '17.6875rem'
       },
       maxWidth: {
         '4xl': '54rem'
       },
       height: {
         '54': '13.25rem',
+        '64': '16.25rem',
         '72': '18.5rem'
       },
       backgroundImage: {
@@ -41,5 +43,5 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp'),],
 }
