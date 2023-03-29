@@ -35,6 +35,9 @@ module.exports = {
       },
       boxShadow: {
         'custom': '0px 2px 28px rgba(0, 0, 0, 0.2)'
+      },
+      margin: {
+        '18': '4.5rem'
       }
     },
   },

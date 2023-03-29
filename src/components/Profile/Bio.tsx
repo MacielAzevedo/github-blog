@@ -6,7 +6,7 @@ interface BioProps {
 
 export function Bio({ children }: BioProps) {
     return (
-        <p className="font-normal text-base text-base-text">
+        <p className="font-normal text-base text-base-text text-ellipsis">
             {children}
         </p>
     )
