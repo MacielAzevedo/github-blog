@@ -10,6 +10,10 @@ interface User {
     url: string
 }
 
+interface Post {
+    title: string
+}
+
 interface BlogContextProps {
     userData: User
 }
@@ -22,6 +26,7 @@ interface BlogProvierProps {
 
 export function BlogProvider({ children }: BlogProvierProps) {
     const [userData, setUserData] = useState({} as User)
+    const [posts, setPosts] = useState<Post[]>([])
 
     async function fetchUserData() {
         const response = await api.get('/users/macielAzevedo')

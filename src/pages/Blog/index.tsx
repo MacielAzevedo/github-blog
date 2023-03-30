@@ -5,9 +5,8 @@ import { BlogContext } from "../../contexts/BlogContext";
 import { BsBoxArrowUpRight, BsGithub, BsBuildingFill } from "react-icons/bs"
 import { HiUsers } from "react-icons/hi"
 import { MoreDetails } from "../../components/MoreDetails";
-import { SearchForm } from "../../components/SearchForm";
 import { Posts } from "../../components/Posts";
-
+import { SearchForm } from "../../components/SearchForm";
 
 export function Blog() {
     const { userData } = useContext(BlogContext)
