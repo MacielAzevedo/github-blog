@@ -12,7 +12,7 @@ export function Flag({ icon, text, count }: FlagProps) {
             <div className="text-base-label">
                 {icon}
             </div>
-            <strong className="text-base-subtitle font-normal leading-relaxed">
+            <strong className="text-base-span font-normal leading-relaxed">
                 {count} {text}
             </strong>
         </div>

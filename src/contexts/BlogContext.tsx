@@ -27,7 +27,6 @@ export function BlogProvider({ children }: BlogProvierProps) {
         const response = await api.get('/users/macielAzevedo')
 
         setUserData(response.data)
-        console.log(response.data)
     }
 
     useEffect(() => {
