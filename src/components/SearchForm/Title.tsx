@@ -1,11 +1,9 @@
 interface TitleProps {
-    text: string
+  text: string
 }
 
 export function Title({ text }: TitleProps) {
-    return (
-        <strong className="text-lg font-bold text-base-subtitle">
-            {text}
-        </strong>
-    )
+  return (
+    <strong className="text-lg font-bold text-base-subtitle">{text}</strong>
+  )
 }

@@ -1,7 +1,7 @@
-import { Root } from "./Root";
-import { Trigger } from "./Trigger";
+import { Root } from './Root'
+import { Trigger } from './Trigger'
 
 export const ExternalLink = {
-    Root,
-    Trigger,
+  Root,
+  Trigger,
 }
