@@ -6,7 +6,7 @@ interface ContentProps {
 
 export function Content({ children }: ContentProps) {
   return (
-    <div className="w-full h-full flex justify-center items-center gap-8">
+    <div className="w-full h-full flex justify-center items-center gap-8 max-sm:flex-col">
       {children}
     </div>
   )
