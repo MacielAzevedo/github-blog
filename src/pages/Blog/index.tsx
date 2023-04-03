@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import { ExternalLink } from '../../components/ExternalLink'
 import { Profile } from '../../components/Profile'
 import { BlogContext } from '../../contexts/BlogContext'
@@ -8,9 +7,19 @@ import { MoreDetails } from '../../components/MoreDetails'
 import { Posts } from '../../components/Posts'
 import { SearchForm } from '../../components/SearchForm'
 import { LoadingAnimation } from '../../components/LoadingAnimation'
+import { useContextSelector } from 'use-context-selector'
 
 export function Blog() {
-  const { userData, posts, isLoading } = useContext(BlogContext)
+  const userData = useContextSelector(BlogContext, (context) => {
+    return context.userData
+  })
+  const posts = useContextSelector(BlogContext, (context) => {
+    return context.posts
+  })
+  const isLoading = useContextSelector(BlogContext, (context) => {
+    return context.isLoading
+  })
+
   const { bio, company, followers, login, name, avatar_url, url } = userData
 
   return (

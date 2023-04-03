@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useContext } from 'react'
+import { useContextSelector } from 'use-context-selector'
 import { BlogContext } from '../../contexts/BlogContext'
 
 const SearchFormSchema = z.object({
@@ -15,7 +15,9 @@ interface SearchInputProps {
 }
 
 export function SearchInput({ placeholder }: SearchInputProps) {
-  const { getPosts } = useContext(BlogContext)
+  const getPosts = useContextSelector(BlogContext, (context) => {
+    return context.getPosts
+  })
   const { register, handleSubmit } = useForm<SearchFormInputs>({
     resolver: zodResolver(SearchFormSchema),
   })

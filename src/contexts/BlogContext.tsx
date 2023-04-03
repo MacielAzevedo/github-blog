@@ -1,11 +1,7 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { api } from '../lib/axios'
+
+import { createContext } from 'use-context-selector'
 
 export const username = 'MacielAzevedo'
 export const repoName = 'github-blog-03-ignite'

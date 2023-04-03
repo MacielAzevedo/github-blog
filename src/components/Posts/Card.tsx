@@ -24,7 +24,9 @@ export function Card({ post }: CardProps) {
         </span>
       </div>
 
-      <p className="text-base-text text-justify line-clamp-4 max-sm:line-clamp-3">{body}</p>
+      <p className="text-base-text text-justify line-clamp-4 max-sm:line-clamp-3">
+        {body}
+      </p>
     </NavLink>
   )
 }

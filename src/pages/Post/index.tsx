@@ -1,5 +1,6 @@
+import { useContextSelector } from 'use-context-selector'
 import { CaretLeft } from 'phosphor-react'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   BsBoxArrowUpRight,
   BsFillCalendarEventFill,
@@ -22,7 +23,9 @@ import { api } from '../../lib/axios'
 import { useParams } from 'react-router-dom'
 
 export function Post() {
-  const { userData } = useContext(BlogContext)
+  const userData = useContextSelector(BlogContext, (context) => {
+    return context.userData
+  })
   const [isLoading, setIsLoading] = useState(true)
   const [issueData, setIssueData] = useState({} as PostProps)
   const { login } = userData
