@@ -1,5 +1,5 @@
 import { CaretLeft } from 'phosphor-react'
-import { useContext } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import {
   BsBoxArrowUpRight,
   BsFillCalendarEventFill,
@@ -9,62 +9,89 @@ import {
 import { ExternalLink } from '../../components/ExternalLink'
 import { MoreDetails } from '../../components/MoreDetails'
 import { PostInfo } from '../../components/PostInfo'
-import { BlogContext } from '../../contexts/BlogContext'
+import {
+  BlogContext,
+  PostProps,
+  repoName,
+  username,
+} from '../../contexts/BlogContext'
+import { FormattedDateRelativeToNow } from '../../utils/formatter'
+import { LoadingAnimation } from '../../components/LoadingAnimation'
+
+import { api } from '../../lib/axios'
+import { useParams } from 'react-router-dom'
 
 export function Post() {
-  const { userData, posts } = useContext(BlogContext)
+  const { userData } = useContext(BlogContext)
+  const [isLoading, setIsLoading] = useState(true)
+  const [issueData, setIssueData] = useState({} as PostProps)
   const { login } = userData
+  const { id } = useParams()
 
+  const { body, comments, created_at, html_url, title } = issueData
+
+  const getIssueDatail = useCallback(async () => {
+    try {
+      setIsLoading(true)
+
+      const response = await api.get(
+        `/repos/${username}/${repoName}/issues/${id}`,
+      )
+      setIssueData(response.data)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [id])
+
+  useEffect(() => {
+    getIssueDatail()
+  }, [getIssueDatail])
 
   return (
     <PostInfo.Root>
       <PostInfo.Header>
-        <PostInfo.Title>
-          <ExternalLink.Root>
-            <CaretLeft color="#3294F8" size={12} />
-            <ExternalLink.Trigger path="/" text="Voltar" />
-          </ExternalLink.Root>
+        {isLoading ? (
+          <LoadingAnimation />
+        ) : (
+          <>
+            <PostInfo.Title>
+              <ExternalLink.Root>
+                <CaretLeft color="#3294F8" size={12} />
+                <ExternalLink.Trigger path="/" text="Voltar" />
+              </ExternalLink.Root>
 
-          <ExternalLink.Root>
-            <ExternalLink.Trigger path="/" text="Ver no github" />
-            <BsBoxArrowUpRight color="#3294F8" size={12} />
-          </ExternalLink.Root>
-        </PostInfo.Title>
+              <ExternalLink.Root>
+                <ExternalLink.Trigger path={html_url} text="Ver no github" />
+                <BsBoxArrowUpRight color="#3294F8" size={12} />
+              </ExternalLink.Root>
+            </PostInfo.Title>
 
-        <PostInfo.Content>
-          <PostInfo.Subtitle text="JavaScript data types and data structures" />
+            <PostInfo.Content>
+              <PostInfo.Subtitle text={title} />
 
-          <MoreDetails.Root>
-            <MoreDetails.Flag icon={<BsGithub />} text={login} />
+              <MoreDetails.Root>
+                <MoreDetails.Flag icon={<BsGithub />} text={login} />
 
-            <MoreDetails.Flag
-              icon={<BsFillCalendarEventFill />}
-              text="Há um dia"
-            />
+                <MoreDetails.Flag
+                  icon={<BsFillCalendarEventFill />}
+                  text={FormattedDateRelativeToNow(new Date(created_at))}
+                />
 
-            <MoreDetails.Flag
-              icon={<BsFillChatFill />}
-              count={10}
-              text={'Comentário(s)'}
-            />
-          </MoreDetails.Root>
-        </PostInfo.Content>
+                <MoreDetails.Flag
+                  icon={<BsFillChatFill />}
+                  count={comments}
+                  text={'Comentário(s)'}
+                />
+              </MoreDetails.Root>
+            </PostInfo.Content>
+          </>
+        )}
       </PostInfo.Header>
 
       <PostInfo.Footer>
-        <PostInfo.TextContent
-          content="Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in JavaScript and what properties they have. These can be used to build other data structures. Wherever possible, comparisons with other languages are drawn.
-
-                        Dynamic typing
-                        JavaScript is a loosely typed and dynamic language. Variables in JavaScript are not directly associated with any particular value type, and any variable can be assigned (and re-assigned) values of all types:
-                        "
-        />
-
-        <PostInfo.Code
-          content="let foo = 42;   // foo is now a number
-                        foo = ‘bar’;    // foo is now a string
-                        foo = true;     // foo is now a boolean"
-        />
+        {!isLoading && <PostInfo.TextContent content={body} />}
       </PostInfo.Footer>
     </PostInfo.Root>
   )

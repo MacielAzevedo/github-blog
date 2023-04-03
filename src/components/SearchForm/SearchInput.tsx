@@ -17,7 +17,7 @@ interface SearchInputProps {
 export function SearchInput({ placeholder }: SearchInputProps) {
   const { getPosts } = useContext(BlogContext)
   const { register, handleSubmit } = useForm<SearchFormInputs>({
-    resolver: zodResolver(SearchFormSchema)
+    resolver: zodResolver(SearchFormSchema),
   })
 
   async function handleSearchIssues(data: SearchFormInputs) {
@@ -25,9 +25,7 @@ export function SearchInput({ placeholder }: SearchInputProps) {
   }
 
   return (
-    <form className='w-full'
-      onSubmit={handleSubmit(handleSearchIssues)}
-    >
+    <form className="w-full" onSubmit={handleSubmit(handleSearchIssues)}>
       <input
         className="w-full h-12  py-3 px-4 mb-12 bg-base-input border border-base-border rounded-md placeholder:text-base-label focus-within:border-blue active:text-base-text outline-none"
         type="text"

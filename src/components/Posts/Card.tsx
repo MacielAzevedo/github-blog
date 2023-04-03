@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router-dom'
-import { Post } from '../../contexts/BlogContext'
+import { PostProps } from '../../contexts/BlogContext'
 import { FormattedDateRelativeToNow } from '../../utils/formatter'
 
 interface CardProps {
-  post: Post
+  post: PostProps
 }
 
 export function Card({ post }: CardProps) {
-  const { number, body, created_at, title } = post
+  const { number, body, title, created_at } = post
 
   return (
     <NavLink

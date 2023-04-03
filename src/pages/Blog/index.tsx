@@ -11,12 +11,14 @@ import { LoadingAnimation } from '../../components/LoadingAnimation'
 
 export function Blog() {
   const { userData, posts, isLoading } = useContext(BlogContext)
-  const { bio, company, followers, login, name, avatar_url } = userData
+  const { bio, company, followers, login, name, avatar_url, url } = userData
 
   return (
     <>
       <Profile.Root>
-        {isLoading ? <LoadingAnimation /> : (
+        {isLoading ? (
+          <LoadingAnimation />
+        ) : (
           <Profile.Content>
             <Profile.Avatar avatarURL={avatar_url} />
             <Profile.Info>
@@ -36,9 +38,7 @@ export function Blog() {
               <MoreDetails.Root>
                 <MoreDetails.Flag icon={<BsGithub />} text={login} />
 
-                <MoreDetails.Flag
-                  icon={<BsBuildingFill />} text={company}
-                />
+                <MoreDetails.Flag icon={<BsBuildingFill />} text={company} />
 
                 <MoreDetails.Flag
                   icon={<HiUsers />}
@@ -57,18 +57,15 @@ export function Blog() {
           <SearchForm.Publications count={posts.length} text="publicações" />
         </SearchForm.TitleContent>
 
-        <SearchForm.SearchInput
-          placeholder="Buscar conteúdo"
-        />
+        <SearchForm.SearchInput placeholder="Buscar conteúdo" />
       </SearchForm.Root>
 
-      {isLoading ? <LoadingAnimation /> : (
+      {isLoading ? (
+        <LoadingAnimation />
+      ) : (
         <Posts.Root>
           {posts.map((post) => (
-            <Posts.Card
-              key={post.number}
-              post={post}
-            />
+            <Posts.Card key={post.number} post={post} />
           ))}
         </Posts.Root>
       )}

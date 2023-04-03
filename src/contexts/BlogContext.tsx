@@ -1,8 +1,14 @@
-import { createContext, ReactNode, useCallback, useEffect, useState } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 import { api } from '../lib/axios'
 
-const username = 'MacielAzevedo'
-const repoName = 'github-blog-03-ignite'
+export const username = 'MacielAzevedo'
+export const repoName = 'github-blog-03-ignite'
 
 interface User {
   avatar_url: string
@@ -14,7 +20,7 @@ interface User {
   url: string
 }
 
-export interface Post {
+export interface PostProps {
   title: string
   body: string
   created_at: string
@@ -25,7 +31,7 @@ export interface Post {
 
 interface BlogContextProps {
   userData: User
-  posts: Post[]
+  posts: PostProps[]
   getPosts: (query: string) => Promise<void>
   isLoading: boolean
 }
@@ -38,9 +44,8 @@ interface BlogProvierProps {
 
 export function BlogProvider({ children }: BlogProvierProps) {
   const [userData, setUserData] = useState({} as User)
-  const [posts, setPosts] = useState<Post[]>([])
+  const [posts, setPosts] = useState<PostProps[]>([])
   const [isLoading, setIsLoading] = useState(true)
-
 
   async function fetchUserData() {
     const response = await api.get(`/users/${username}`)
@@ -48,22 +53,23 @@ export function BlogProvider({ children }: BlogProvierProps) {
     setUserData(response.data)
   }
 
-
-  const getPosts = useCallback(async (query: string = "") => {
+  const getPosts = useCallback(async (query: string = '') => {
     try {
       setIsLoading(true)
-      const response = await api.get(`search/issues?q=${query}%20repo:${username}/${repoName}`)
+      const response = await api.get(
+        `search/issues?q=${query}%20repo:${username}/${repoName}`,
+      )
 
       setPosts(response.data.items)
     } finally {
       setIsLoading(false)
     }
-  }, [posts])
+  }, [])
 
   useEffect(() => {
     fetchUserData()
     getPosts()
-  }, [])
+  }, [getPosts])
 
   return (
     <BlogContext.Provider
@@ -71,7 +77,7 @@ export function BlogProvider({ children }: BlogProvierProps) {
         userData,
         posts,
         getPosts,
-        isLoading
+        isLoading,
       }}
     >
       {children}

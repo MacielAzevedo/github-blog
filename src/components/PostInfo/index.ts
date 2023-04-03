@@ -1,4 +1,3 @@
-import { Code } from './Code'
 import { Content } from './Content'
 import { Footer } from './Footer'
 import { Root } from './Root'
@@ -14,6 +13,5 @@ export const PostInfo = {
   Subtitle,
   Footer,
   TextContent,
-  Code,
   Header,
 }
